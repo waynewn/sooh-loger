@@ -1,0 +1,15 @@
+{
+
+    "name": "steady-as-hill/sooh-loger",
+    "description": "loger writer",
+    "keywords":         ["loger"],
+    "license":          "MIT",
+    "require": {
+
+    },
+    "autoload": {
+      "psr-4": { "Sooh\\LogClasses\\": "src/LogClasses" },
+        "classmap":["src/Loger.php"]
+    }
+}
+
