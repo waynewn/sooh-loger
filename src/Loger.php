@@ -59,24 +59,38 @@ class Loger{
      * 获取当前运行中的唯一实例
      * @return \Sooh\Ini
      */
-    public static function getInstance($commonDriver=null,$errorDriver=null,$traceDriver=null)
+    public static function getInstance($commonDriver=null,$errorDriver=null,$traceDriver=null,$logParts=null)
     {
         if(self::$_instance==null){
             $c = get_called_class();
             self::$_instance = new $c;
-            self::$_instance->logParts = new \Sooh\LogClasses\LogParts;
-            self::$_instance->logParts->reset();
+            if($logParts==null){
+                $logParts = new \Sooh\LogClasses\LogParts;
+            }
+            self::$_instance->parts = $logParts;
+            self::$_instance->parts->reset();
             self::$_instance->traceLevel = 7;
         }
+        $defaultDriver = new \Sooh\LogClasses\Driver\PHPDefault();
         if($commonDriver!==null){
             self::$_instance->commonDriver = $commonDriver;
         }
-        if($errorDriver!==null){
-            self::$_instance->errorDriver = $errorDriver;
+        if(self::$_instance->commonDriver==null){
+            self::$_instance->commonDriver = $defaultDriver;
         }
+        if($errorDriver!==null){
+            self::$_instance->errorsDriver = $errorDriver;
+        }
+        if(self::$_instance->errorsDriver==null){
+            self::$_instance->errorsDriver = $defaultDriver;
+        }        
         if($traceDriver!==null){
             self::$_instance->tracesDriver = $traceDriver;
-        }        
+        }
+        if(self::$_instance->tracesDriver==null){
+            self::$_instance->tracesDriver = $defaultDriver;
+        }
+        
         return self::$_instance;
     }
     
@@ -85,19 +99,20 @@ class Loger{
     const trace_app = 4;    
     protected $traceLevel=0;
     /**
-     * 获取或设置新的trace level
-     * @param type $newLv
-     * @return type
+     * 设置新的trace level
      */
-    public function traceLevel($newLv=null)
+    public function setTraceLevel($newLv=null)
     {
-        if($newLv===null){
-            return $this->traceLevel;
-        }else{
-            $this->traceLevel = $newLv;
-        }
+        $this->traceLevel = $newLv;
+        return $this;
     }    
-
+    /**
+     * 获取trace level
+     */
+    public function getTraceLevel()
+    {
+        return $this->traceLevel;
+    }
     /**
      * 开始处理一个新的请求的时候，调用此函数完成一些初始化（创建当前请求的唯一标识）
      */

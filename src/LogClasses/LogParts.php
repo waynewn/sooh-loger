@@ -98,68 +98,6 @@ class LogParts {
         }
         return  $arr[$trace_begin + 1]['class'].'->'.$arr[$trace_begin + 1]['function'].'['.$arr[$trace_begin]['line'].']('.$strArgs.')';
     }
-    
-    /**
-     * 格式化日志信息 ： 
-     *      ## 日志信息 ## 其他信息 ## 用户、进程信息  ## 触发位置函数信息以及类数组信息
-     * @param string $flg
-     * @param type $msgOrObj
-     * @param type $prefixIntro
-     * @return string
-     */
-    protected function fmtTxtLog($flg,$msgOrObj, $prefixIntro)
-    {
 
-        $traceStr='';
-        $traceObj='';
-        if(is_null($msgOrObj)){
-            if(is_null($prefixIntro)){
-                $traceStr.='null';
-            }
-        }if(is_scalar($msgOrObj)){
-            $traceStr.=$msgOrObj;
-        }else{
-            $traceObj = var_export($msgOrObj,true);
-        }
-        if(is_null($prefixIntro)){
-            if(is_null($msgOrObj)){
-                $traceStr.='null';
-            }
-        }if(is_scalar($prefixIntro)){
-            $traceStr.=$prefixIntro;
-        }else{
-            $traceObj = var_export($prefixIntro,true);
-        }
-        if($flg!=='app_common'){
-            $traceCallPos = $this->getCallPosition();
-        }else{
-            $traceCallPos='';
-        }
-        
-        $tmp = $this->env;
-        $traceUserProcessInfo ='';
-        if(isset($tmp['user'])){
-            $traceUserProcessInfo.='User:'.$tmp['user'].', ';
-            unset($tmp['user']);
-        }
-        if(isset($tmp['sess'])){
-            $traceUserProcessInfo.='SESS:'.$tmp['sess'].', ';
-            unset($tmp['sess']);
-        }
-        if(isset($tmp['sooh2_the_req_uri'])){
-            $traceUserProcessInfo.='Uri:'.$tmp['sooh2_the_req_uri'].', ';
-            unset($tmp['sooh2_the_req_uri']);
-        }
-        if(isset($tmp['sooh2_the_proc_sn'])){
-            $traceUserProcessInfo.='P_SN:'.$tmp['sooh2_the_proc_sn'].', ';
-            unset($tmp['sooh2_the_proc_sn']);
-        }
-        $otherTraceInfo = $type;
-        foreach ($tmp as $k=>$v){
-            $otherTraceInfo.=" $k:$v";
-        }
-        //## 日志信息 ## 其他信息 ## 用户、进程信息  ## 触发位置函数信息以及类数组信息
-        return $traceStr.' ## '.$otherTraceInfo.' ## '.$traceUserProcessInfo.' ## '.$traceCallPos." ".$traceObj;
-    }    
 }
 
