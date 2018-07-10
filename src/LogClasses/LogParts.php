@@ -82,7 +82,7 @@ class LogParts {
      */
     public function getCallPosition()
     {
-        $trace_begin = 4;
+        $trace_begin = 2;
         $arr = debug_backtrace(null , $trace_begin + 2);
         $args = $arr[$trace_begin + 1]['args'];
         $strArgs = '';

@@ -175,38 +175,38 @@ class Loger{
         return $this;
     }
 
-    public function sys_trace($msgOrObj,$moreIntro=null)
+    public function sys_trace($msgOrObj,$extmsg=null)
     {
         if($this->traceLevel & self::trace_sys){
-            $this->tracesDriver->write($this->parts->prepare('trace','sys', $msgOrObj, $moreIntro));
+            $this->tracesDriver->write($this->parts->prepare('trace','sys', $msgOrObj, $extmsg));
         }
     }
-    public function sys_error($msgOrObj,$moreIntro=null)
+    public function sys_error($msgOrObj,$extmsg=null)
     {
-        $this->errorsDriver->write($this->parts->prepare('error','sys', $msgOrObj, $moreIntro));
+        $this->errorsDriver->write($this->parts->prepare('error','sys', $msgOrObj, $extmsg));
     }
-    public function app_common($msgOrObj,$moreIntro=null)
+    public function app_common($msgOrObj,$extmsg=null)
     {
-        $this->commonDriver->write($this->parts->prepare('common','app', $msgOrObj, $moreIntro));
+        $this->commonDriver->write($this->parts->prepare('common','app', $msgOrObj, $extmsg));
     }
-    public function app_trace($msgOrObj,$moreIntro=null)
+    public function app_trace($msgOrObj,$extmsg=null)
     {
         if($this->traceLevel & self::trace_app){
-            $this->tracesDriver->write($this->parts->prepare('trace','app', $msgOrObj, $moreIntro));
+            $this->tracesDriver->write($this->parts->prepare('trace','app', $msgOrObj, $extmsg));
         }
     }
-    public function app_error($msgOrObj,$moreIntro=null)
+    public function app_error($msgOrObj,$extmsg=null)
     {
-        $this->errorsDriver->write($this->parts->prepare('error','app', $msgOrObj, $moreIntro));
+        $this->errorsDriver->write($this->parts->prepare('error','app', $msgOrObj, $extmsg));
     }
-    public function lib_trace($msgOrObj,$moreIntro=null)
+    public function lib_trace($msgOrObj,$extmsg=null)
     {
         if($this->traceLevel & self::trace_lib){
-            $this->tracesDriver->write($this->parts->prepare('trace','lib', $msgOrObj, $moreIntro));
+            $this->tracesDriver->write($this->parts->prepare('trace','lib', $msgOrObj, $extmsg));
         }
     }
-    public function lib_error($msgOrObj,$moreIntro=null)
+    public function lib_error($msgOrObj,$extmsg=null)
     {
-        $this->errorsDriver->write($this->parts->prepare('error','lib', $msgOrObj, $moreIntro));
+        $this->errorsDriver->write($this->parts->prepare('error','lib', $msgOrObj, $extmsg));
     }        
 }

@@ -2,7 +2,7 @@
 namespace Sooh\LogClasses\Driver;
 class PHPDefault extends \Sooh\LogClasses\DriverBase{
     protected $_tplRow;
-    public function __construct($tpl='[{logtype}]{message} ## {result} {extmsg} {custom} ## {remoteIp} User:{userid} SESS:{sessionid} Uri:{requestUri} P_SN:{requestSN} ## {codeInfo} {detail}') {
+    public function __construct($tpl='[{logtype}]{message} ## {result} {extmsg} {custom} ## {remoteIp} User:{userid} SESS:{sessionid} Uri:{requestUri} P_SN:{requestSN} ## {codeInfo} {extmsg}') {
         $this->_tplRow = $tpl;
     }
     /**
